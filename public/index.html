@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <meta name="description"
+        content="Sistema de Registros de Esterilização - Gerencie autoclaves, ciclos e responsáveis">
+    <meta name="author" content="Sistema de Esterilização">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Esterilização | Sistema de Registros</title>
+
+    <!-- Preconnect para fontes -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap"
+        rel="stylesheet">
+
+    <!-- CSS Principal -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- Cabeçalho com Navegação -->
+        <header class="header-nav">
+            <div class="logo-area">
+                <h1>📋 Esterilização · Registros</h1>
+            </div>
+            <nav class="nav-links" aria-label="Navegação principal">
+                <button class="nav-btn" data-page="registro" aria-label="Registro">Registro</button>
+                <button class="nav-btn" data-page="rapports" aria-label="Relatórios">Relatórios</button>
+                <button class="nav-btn" data-page="autoclaves" aria-label="Autoclaves">Autoclaves</button>
+                <button class="nav-btn" data-page="responsables" aria-label="Responsáveis">Responsáveis</button>
+            </nav>
+        </header>
+
+        <!-- PÁGINA: REGISTRO -->
+        <!-- PÁGINA: REGISTRO -->
+        <main id="registro" class="page-content" role="tabpanel">
+            <!-- Formulário para novo ciclo -->
+            <section class="glass-card" id="newCycleFormSection">
+                <div class="form-header">
+                    <h2>📝 Registros</h2>
+                    <button class="btn-print" id="printCurrentLabelBtn" title="Imprimir etiqueta do registro atual">
+                        🖨️ Imprimir Etiqueta
+                    </button>
+                </div>
+
+                <form id="newCycleForm" class="cycle-form">
+                    <div class="form-grid-3x3">
+                        <!-- LINHA 1 -->
+                        <div class="form-cell">
+                            <label for="newCycleAutoclave">Autoclave</label>
+                            <select id="newCycleAutoclave" required>
+                                <option value="">-- Selecione --</option>
+                            </select>
+                        </div>
+                        <div class="form-cell">
+                            <label for="newCycleResponsable">Responsável</label>
+                            <select id="newCycleResponsable" required>
+                                <option value="">-- Selecione --</option>
+                            </select>
+                        </div>
+                        <div class="form-cell">
+                            <label for="newCycleNumber">Nº Ciclo</label>
+                            <input type="text" id="newCycleNumber" placeholder="Ex: CYC-001">
+                        </div>
+
+                        <!-- LINHA 2 -->
+                        <div class="form-cell">
+                            <label for="newCycleDate">Data ciclo</label>
+                            <input type="date" id="newCycleDate" required>
+                        </div>
+                        <div class="form-cell">
+                            <label>Prazo validade</label>
+                            <div class="validity-buttons">
+                                <button type="button" class="validity-btn" data-days="30">30d</button>
+                                <button type="button" class="validity-btn" data-days="60">60d</button>
+                                <button type="button" class="validity-btn" data-days="90">90d</button>
+                            </div>
+                        </div>
+                        <div class="form-cell">
+                            <label for="newCycleValidity">Data validade</label>
+                            <input type="date" id="newCycleValidity" readonly class="validity-date-input">
+                        </div>
+
+                        <!-- LINHA 3 -->
+                        <div class="form-cell">
+                            <label for="newCycleTemp">Temperatura (°C)</label>
+                            <input type="number" step="any" id="newCycleTemp" placeholder="121" required>
+                        </div>
+                        <div class="form-cell">
+                            <label for="newCyclePression">Pressão (bar)</label>
+                            <input type="number" step="0.01" id="newCyclePression" placeholder="2.00" required>
+                        </div>
+                        <div class="form-cell">
+                            <label for="newCycleEtiquettes">Quantidade etiquetas</label>
+                            <input type="number" id="newCycleEtiquettes" placeholder="50" required>
+                        </div>
+                    </div>
+
+                    <div class="action-buttons">
+                        <button type="submit" class="btn-primary">✅ Salvar ciclo</button>
+                        <button type="button" class="btn-secondary" id="updateCycleBtn">✏️ Atualizar ciclo</button>
+                        <button type="button" class="btn-danger" id="deleteCurrentRecordBtn">🗑️ Excluir</button>
+                        <button type="reset" class="btn-secondary">Limpar campos</button>
+                    </div>
+                </form>
+            </section>
+
+            <!-- Navegação entre registros (abaixo do formulário) -->
+            <section class="glass-card navigation-card">
+                <div class="record-navigation">
+                    <button class="nav-record-btn" id="prevRecordBtn" title="Registro anterior">
+                        ◀ Próximo
+                    </button>
+                    <span class="record-counter" id="recordCounter">
+                        Registro <span id="currentRecordNum">0</span> de <span id="totalRecords">0</span>
+                    </span>
+                    <button class="nav-record-btn" id="nextRecordBtn" title="Próximo registro">
+                        Anterior ▶
+                    </button>
+                </div>
+                <div class="form-footer-info">
+                    <span class="record-id-info" id="recordIdInfo">Modo: Novo registro</span>
+                </div>
+            </section>
+        </main>
+
+        <!-- PÁGINA: RELATÓRIOS -->
+        <main id="rapports" class="page-content" role="tabpanel">
+            <section class="glass-card">
+                <h2>📊 Relatórios de Esterilização</h2>
+                <div class="reports-layout">
+                    <div class="filters-panel">
+                        <div class="form-group">
+                            <label for="reportDateStart">Data inicial</label>
+                            <input type="date" id="reportDateStart">
+                        </div>
+                        <div class="form-group">
+                            <label for="reportDateEnd">Data final</label>
+                            <input type="date" id="reportDateEnd">
+                        </div>
+                        <button class="btn-primary" id="generateReportBtn">📄 Gerar relatório</button>
+                    </div>
+
+                    <div class="preview-panel">
+                        <h3>📋 Últimos ciclos</h3>
+                        <div class="table-wrapper">
+                            <table style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th>Data</th>
+                                        <th>Autoclave</th>
+                                        <th>Temperatura</th>
+                                        <th>Pressão</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="reportPreviewBody">
+                                    <tr>
+                                        <td colspan="4" class="empty-message">Carregando...</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn-print" id="printRapportBtn">🖨️ Imprimir relatório</button>
+                    <button class="btn-secondary" id="clearReportBtn">Limpar filtros</button>
+                </div>
+                <div id="reportMessage" class="report-message" role="status" aria-live="polite"></div>
+            </section>
+        </main>
+
+        <!-- PÁGINA: AUTOCLAVES -->
+        <main id="autoclaves" class="page-content" role="tabpanel">
+            <section class="glass-card">
+                <h2>🛠️ Gerenciamento de Autoclaves</h2>
+                <div class="two-columns">
+                    <div>
+                        <form id="autoclaveForm" class="inline-form">
+                            <div class="form-group">
+                                <label for="autoclaveName">Nome / ID Autoclave *</label>
+                                <input type="text" id="autoclaveName" placeholder="Ex: SteriClave-01" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="autoclaveCycle">Ciclo padrão</label>
+                                <input type="text" id="autoclaveCycle" placeholder="Ex: Padrão 134°C">
+                            </div>
+                            <button type="button" id="addAutoclaveBtn" class="btn-primary">➕ Adicionar</button>
+                        </form>
+                    </div>
+                    <div class="table-wrapper">
+                        <table id="autoclaveTable" aria-label="Lista de autoclaves">
+                            <thead>
+                                <tr>
+                                    <th>Autoclave</th>
+                                    <th>Ciclo padrão</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody id="autoclaveListBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- PÁGINA: RESPONSÁVEIS -->
+        <main id="responsables" class="page-content" role="tabpanel">
+            <section class="glass-card">
+                <h2>👥 Responsáveis pela Esterilização</h2>
+                <div class="two-columns">
+                    <div>
+                        <form id="responsavelForm" class="inline-form">
+                            <div class="form-group">
+                                <label for="respName">Nome completo *</label>
+                                <input type="text" id="respName" placeholder="Nome do responsável" required>
+                            </div>
+                            <button type="button" id="addResponsableBtn" class="btn-primary">➕ Registrar
+                                responsável</button>
+                        </form>
+                    </div>
+                    <div class="table-wrapper">
+                        <table id="respTable" aria-label="Lista de responsáveis">
+                            <thead>
+                                <tr>
+                                    <th>Nome</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody id="respListBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="footer-register">
+                    * Os responsáveis podem ser afetados aos autoclaves
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- JavaScript Principal -->
+    <script src="js/app.js" defer></script>
+</body>
+
+</html>

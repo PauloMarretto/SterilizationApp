@@ -1,0 +1,1040 @@
+/* ============================================
+   RESET E VARIÁVEIS GLOBAIS
+   ============================================ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    /* Cores baseadas nas imagens - tons neutros e suaves */
+    --bg-primary: #f5f5f0;
+    --bg-secondary: #e8e6e1;
+    --glass-bg: rgba(248, 224, 209, 0.75);
+    --glass-card-bg: rgba(250, 250, 245, 0.85);
+    --glass-border: rgba(200, 195, 185, 0.3);
+    --primary-text: #2c2c2a;
+    --secondary-text: #6b6b66;
+    --placeholder-color: #a8a8a0;
+    
+    /* Cores de foco - como no exemplo */
+    --focus-color: #e8d5b5;
+    --focus-border: #c4a87c;
+    --accent-color: #d4b896;
+    --accent-hover: #c4a87c;
+    
+    /* Cores de botão */
+    --btn-bg: #e0ddd5;
+    --btn-hover: #d4d0c6;
+    --btn-active: #c8c4b8;
+    
+    --danger-color: #c97b7b;
+    --success-color: #7b9c7b;
+    --warning-color: #d4b87a;
+    
+    /* Sombras e efeitos */
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
+    --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.06);
+    --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.08);
+    --shadow-focus: 0 0 0 3px rgba(196, 168, 124, 0.2);
+    
+    /* Bordas */
+    --border-radius-sm: 12px;
+    --border-radius-md: 20px;
+    --border-radius-lg: 28px;
+    --border-radius-xl: 40px;
+    
+    /* Transições */
+    --transition-default: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-focus: all 0.2s ease-out;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+    min-height: 100vh;
+    padding: 2rem;
+    color: var(--primary-text);
+    line-height: 1.5;
+}
+
+/* ============================================
+   CONTAINER PRINCIPAL (GLASSMORPHISM)
+   ============================================ */
+.app-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-lg), inset 0 1px 0 rgba(255, 255, 255, 0.5);
+    padding: 2rem;
+    border: 1px solid var(--glass-border);
+}
+
+/* ============================================
+   CABEÇALHO E NAVEGAÇÃO
+   ============================================ */
+.header-nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid rgba(160, 150, 135, 0.2);
+    padding-bottom: 1rem;
+    gap: 1rem;
+}
+
+.logo-area h1 {
+    font-weight: 500;
+    font-size: 1.5rem;
+    background: transparent;
+    color: var(--primary-text);
+    letter-spacing: -0.3px;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-links {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.nav-btn {
+    background: var(--btn-bg);
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(200, 195, 185, 0.4);
+    padding: 0.6rem 1.2rem;
+    border-radius: var(--border-radius-xl);
+    font-weight: 500;
+    font-size: 0.9rem;
+    color: var(--primary-text);
+    cursor: pointer;
+    transition: var(--transition-default);
+    font-family: inherit;
+}
+
+.nav-btn.active {
+    background: var(--accent-color);
+    color: #fff;
+    border-color: var(--accent-color);
+    box-shadow: var(--shadow-sm);
+}
+
+.nav-btn:hover:not(.active) {
+    background: var(--btn-hover);
+    transform: translateY(-1px);
+}
+
+/* ============================================
+   CARDS
+   ============================================ */
+.glass-card {
+    background: rgba(250, 250, 245, 0.85);
+    backdrop-filter: blur(12px);
+    border-radius: 20px;
+    padding: 1.6rem 1.8rem;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--glass-border);
+    margin-bottom: 1.8rem;
+}
+
+.glass-card:last-child {
+    margin-bottom: 0;
+}
+
+.glass-card h2,
+.glass-card h3 {
+    margin-bottom: 1.2rem;
+    font-weight: 500;
+    color: var(--primary-text);
+    letter-spacing: -0.2px;
+}
+
+/* ============================================
+   FORMULÁRIO 3 LINHAS × 3 COLUNAS
+   ============================================ */
+.form-grid-3x3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 1.8rem;
+}
+
+.form-cell {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.form-cell label {
+    font-weight: 500;
+    color: var(--secondary-text);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 0;
+}
+
+.form-cell input,
+.form-cell select {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    border-radius: var(--border-radius-sm);
+    border: 1.5px solid rgba(180, 170, 155, 0.3);
+    background: rgba(255, 255, 252, 0.9);
+    font-size: 0.95rem;
+    transition: var(--transition-focus);
+}
+
+.form-cell input:focus,
+.form-cell select:focus {
+    border-color: var(--focus-border);
+    background: #fffef8;
+    box-shadow: var(--shadow-focus);
+    outline: none;
+}
+
+/* ============================================
+   BOTÕES DE VALIDADE
+   ============================================ */
+.validity-buttons {
+    display: flex;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+    margin-top: 0;
+}
+
+.validity-btn {
+    background: var(--btn-bg);
+    border: 1px solid rgba(180, 170, 155, 0.3);
+    padding: 0.6rem 1rem;
+    border-radius: var(--border-radius-xl);
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition-default);
+    font-family: inherit;
+    font-size: 0.8rem;
+    color: var(--primary-text);
+    flex: 1;
+    text-align: center;
+    min-width: 70px;
+}
+
+.validity-btn:hover {
+    background: var(--btn-hover);
+    transform: translateY(-2px);
+}
+
+.validity-btn.active {
+    background: var(--accent-color);
+    color: white;
+    border-color: var(--accent-color);
+}
+
+.validity-date-input:read-only {
+    background: rgba(240, 238, 232, 0.8);
+    cursor: default;
+}
+
+/* ============================================
+   FORMULÁRIOS E INPUTS
+   ============================================ */
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 1.2rem;
+}
+
+label {
+    font-weight: 500;
+    color: var(--secondary-text);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+input, select, textarea {
+    background: rgba(255, 255, 252, 0.9);
+    border: 1.5px solid rgba(180, 170, 155, 0.3);
+    border-radius: var(--border-radius-sm);
+    padding: 0.9rem 1.1rem;
+    font-size: 0.95rem;
+    transition: var(--transition-focus);
+    outline: none;
+    color: var(--primary-text);
+    font-family: inherit;
+    width: 100%;
+}
+
+input::placeholder, select::placeholder {
+    color: var(--placeholder-color);
+    font-weight: 400;
+}
+
+input:focus, select:focus, textarea:focus {
+    border-color: var(--focus-border);
+    background: #fffef8;
+    box-shadow: var(--shadow-focus);
+    transform: translateY(-1px);
+}
+
+input:hover:not(:focus), select:hover:not(:focus), textarea:hover:not(:focus) {
+    border-color: rgba(180, 170, 155, 0.5);
+    background: rgba(255, 255, 250, 0.95);
+}
+
+input:read-only {
+    background: rgba(240, 238, 232, 0.8);
+    cursor: default;
+}
+
+input:read-only:focus {
+    transform: none;
+    box-shadow: none;
+}
+
+/* ============================================
+   FILTROS DO NAVEGADOR
+   ============================================ */
+.browser-filters {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    background: rgba(235, 230, 220, 0.3);
+    border-radius: var(--border-radius-md);
+}
+
+.filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.filter-group label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+/* ============================================
+   BOTÕES
+   ============================================ */
+.action-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 1.8rem;
+    border-top: 1px solid rgba(160, 150, 135, 0.2);
+    padding-top: 1.5rem;
+}
+
+.btn-primary,
+.btn-secondary,
+.btn-danger,
+.btn-print {
+    border: none;
+    padding: 0.7rem 1.6rem;
+    border-radius: var(--border-radius-xl);
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition-default);
+    font-family: inherit;
+    font-size: 0.85rem;
+    letter-spacing: 0.3px;
+}
+
+.btn-primary {
+    background: var(--accent-color);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.btn-primary:hover {
+    background: var(--accent-hover);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-sm);
+}
+
+.btn-secondary {
+    background: var(--btn-bg);
+    color: var(--primary-text);
+    border: 1px solid rgba(180, 170, 155, 0.4);
+}
+
+.btn-secondary:hover {
+    background: var(--btn-hover);
+    transform: translateY(-2px);
+}
+
+.btn-danger {
+    background: rgba(201, 123, 123, 0.15);
+    color: #c97b7b;
+    border: 1px solid rgba(201, 123, 123, 0.3);
+}
+
+.btn-danger:hover {
+    background: rgba(201, 123, 123, 0.25);
+    transform: translateY(-2px);
+}
+
+.btn-print {
+    background: rgba(123, 156, 123, 0.15);
+    color: #2c2c2a;
+    border: 1px solid rgba(123, 156, 123, 0.3);
+    padding: 0.7rem 1.6rem;
+    border-radius: 40px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.btn-print:hover {
+    background: rgba(123, 156, 123, 0.25);
+    transform: translateY(-2px);
+}
+
+.btn-small {
+    padding: 0.35rem 0.9rem;
+    font-size: 0.75rem;
+    border-radius: var(--border-radius-xl);
+    background: var(--btn-bg);
+    border: 1px solid rgba(180, 170, 155, 0.3);
+    cursor: pointer;
+    transition: var(--transition-default);
+}
+
+.btn-small:hover {
+    background: var(--btn-hover);
+    transform: translateY(-1px);
+}
+
+.btn-icon {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 1.1rem;
+    padding: 0.3rem 0.5rem;
+    transition: var(--transition-default);
+    border-radius: var(--border-radius-sm);
+}
+
+.btn-icon:hover {
+    background: rgba(0, 0, 0, 0.05);
+    transform: scale(1.05);
+}
+
+.btn-icon.delete:hover {
+    background: rgba(201, 123, 123, 0.15);
+    color: var(--danger-color);
+}
+
+/* Botão de excluir na tabela */
+.btn-danger-small {
+    background: rgba(201, 123, 123, 0.15);
+    color: #c97b7b;
+    border: 1px solid rgba(201, 123, 123, 0.3);
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: inherit;
+}
+
+.btn-danger-small:hover {
+    background: rgba(201, 123, 123, 0.3);
+    transform: translateY(-1px);
+}
+
+/* ============================================
+   TABELAS
+   ============================================ */
+.table-wrapper {
+    overflow-x: auto;
+    border-radius: var(--border-radius-md);
+    background: rgba(245, 242, 235, 0.4);
+    padding: 0.2rem;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: rgba(250, 248, 242, 0.7);
+    border-radius: var(--border-radius-md);
+    backdrop-filter: blur(2px);
+}
+
+th, td {
+    padding: 1rem 0.8rem;
+    text-align: left;
+    border-bottom: 1px solid rgba(160, 150, 135, 0.15);
+}
+
+th {
+    font-weight: 600;
+    color: var(--secondary-text);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    background: rgba(235, 230, 220, 0.5);
+}
+
+.empty-message {
+    text-align: center;
+    color: var(--secondary-text);
+    font-style: italic;
+    padding: 2rem;
+}
+
+/* ============================================
+   STATUS DE VALIDADE
+   ============================================ */
+.validity-status {
+    display: inline-block;
+    padding: 0.25rem 0.7rem;
+    border-radius: var(--border-radius-xl);
+    font-size: 0.7rem;
+    font-weight: 500;
+    margin-left: 0.5rem;
+}
+
+.validity-valid {
+    background: rgba(123, 156, 123, 0.15);
+    color: var(--success-color);
+}
+
+.validity-expired {
+    background: rgba(201, 123, 123, 0.15);
+    color: var(--danger-color);
+}
+
+.validity-warning {
+    background: rgba(212, 184, 122, 0.15);
+    color: #b8860b;
+}
+
+/* ============================================
+   RODAPÉ
+   ============================================ */
+.footer-register {
+    margin-top: 1.5rem;
+    text-align: center;
+    font-size: 0.7rem;
+    color: #9a9588;
+    background: rgba(245, 242, 235, 0.5);
+    border-radius: var(--border-radius-xl);
+    padding: 0.6rem;
+    backdrop-filter: blur(4px);
+}
+
+.report-message {
+    margin-top: 1rem;
+    font-style: italic;
+    color: var(--secondary-text);
+    padding: 0.8rem;
+    background: rgba(245, 242, 235, 0.5);
+    border-radius: var(--border-radius-sm);
+    font-size: 0.85rem;
+}
+
+/* ============================================
+   LAYOUT DE GRID
+   ============================================ */
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1rem;
+}
+
+.two-columns {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.8rem;
+}
+
+.reports-layout {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 1.8rem;
+    margin-bottom: 1.5rem;
+}
+
+/* ============================================
+   NAVEGAÇÃO INTEGRADA - REGISTROS
+   ============================================ */
+.registros-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 1.2rem;
+    gap: 1rem;
+}
+
+.registros-header h2 {
+    margin-bottom: 0 !important;
+}
+
+.total-registros-badge {
+    background: var(--accent-color);
+    color: white;
+    padding: 0.3rem 1rem;
+    border-radius: var(--border-radius-xl);
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+/* Paginação integrada */
+.pagination-wrapper {
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(160, 150, 135, 0.2);
+}
+
+.pagination-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 0.5rem 1rem;
+    background: rgba(245, 242, 235, 0.4);
+    border-radius: var(--border-radius-xl);
+    backdrop-filter: blur(4px);
+}
+
+.pagination-btn {
+    background: var(--btn-bg);
+    border: 1px solid rgba(180, 170, 155, 0.4);
+    padding: 0.5rem 1.2rem;
+    border-radius: var(--border-radius-xl);
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition-default);
+    font-family: inherit;
+    font-size: 0.85rem;
+    color: var(--primary-text);
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+.pagination-btn:hover:not(:disabled) {
+    background: var(--btn-hover);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-sm);
+}
+
+.pagination-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.pagination-info {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--primary-text);
+    background: rgba(255, 255, 250, 0.6);
+    padding: 0.4rem 1.2rem;
+    border-radius: var(--border-radius-xl);
+    min-width: 140px;
+    text-align: center;
+}
+
+.pagination-page-info {
+    text-align: center;
+    margin-top: 0.8rem;
+    font-size: 0.7rem;
+    color: #9a9588;
+}
+
+/* Ajustes nos filtros */
+.browser-filters {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    background: rgba(235, 230, 220, 0.3);
+    border-radius: var(--border-radius-md);
+}
+
+/* Botão de excluir na tabela */
+.btn-danger-small {
+    background: rgba(201, 123, 123, 0.15);
+    color: #c97b7b;
+    border: 1px solid rgba(201, 123, 123, 0.3);
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.7rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: inherit;
+}
+
+.btn-danger-small:hover {
+    background: rgba(201, 123, 123, 0.3);
+    transform: translateY(-1px);
+}
+
+/* Responsividade */
+@media (max-width: 600px) {
+    .pagination-container {
+        gap: 0.8rem;
+        flex-wrap: wrap;
+    }
+    
+    .pagination-btn {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.75rem;
+    }
+    
+    .pagination-info {
+        font-size: 0.75rem;
+        padding: 0.3rem 0.8rem;
+        min-width: 120px;
+    }
+    
+    .registros-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+/* ============================================
+   RESPONSIVIDADE
+   ============================================ */
+@media (max-width: 900px) {
+    .form-grid-3x3 {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
+    
+    .form-cell:nth-child(3) {
+        grid-column: span 2;
+    }
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 1rem;
+    }
+    
+    .app-container {
+        padding: 1.2rem;
+    }
+    
+    .nav-btn {
+        padding: 0.5rem 1rem;
+        font-size: 0.8rem;
+    }
+    
+    .glass-card {
+        padding: 1.2rem;
+    }
+    
+    .reports-layout {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .two-columns {
+        grid-template-columns: 1fr;
+    }
+    
+    .logo-area h1 {
+        font-size: 1.3rem;
+    }
+    
+    .browser-filters {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 600px) {
+    .form-grid-3x3 {
+        grid-template-columns: 1fr;
+        gap: 0.8rem;
+    }
+    
+    .form-cell:nth-child(3) {
+        grid-column: span 1;
+    }
+    
+    .validity-buttons {
+        justify-content: flex-start;
+    }
+    
+    .validity-btn {
+        flex: 0 0 auto;
+        padding: 0.5rem 0.8rem;
+    }
+}
+
+@media (max-width: 480px) {
+    th, td {
+        padding: 0.6rem 0.4rem;
+        font-size: 0.8rem;
+    }
+    
+    .action-buttons {
+        flex-direction: column;
+    }
+    
+    .btn-primary, .btn-secondary, .btn-danger, .btn-print {
+        width: 100%;
+        text-align: center;
+    }
+    
+    input, select {
+        padding: 0.7rem 0.9rem;
+    }
+    
+    .pagination-container {
+        gap: 0.8rem;
+        flex-wrap: wrap;
+    }
+    
+    .pagination-btn {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.75rem;
+    }
+    
+    .pagination-info {
+        font-size: 0.75rem;
+        padding: 0.3rem 0.8rem;
+        min-width: 120px;
+    }
+}
+
+/* ============================================
+   ANIMAÇÕES E UTILITÁRIOS
+   ============================================ */
+@keyframes fadeSlide {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.page-content {
+    display: none;
+}
+
+.page-content.active-page {
+    display: block;
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}
+
+.text-center {
+    text-align: center;
+}
+
+/* Scrollbar personalizada */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(200, 195, 185, 0.2);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(160, 150, 135, 0.5);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(160, 150, 135, 0.7);
+}
+
+/* ============================================
+   MODAL DE IMPRESSÃO
+   ============================================ */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+    backdrop-filter: blur(4px);
+}
+
+.modal-content {
+    background: var(--glass-card-bg);
+    backdrop-filter: blur(12px);
+    border-radius: var(--border-radius-md);
+    padding: 2rem;
+    min-width: 320px;
+    max-width: 500px;
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--shadow-lg);
+}
+
+.modal-content h3 {
+    margin-bottom: 1.5rem;
+    color: var(--primary-text);
+}
+
+.modal-content .form-group {
+    margin-bottom: 1.2rem;
+}
+
+.modal-content label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+
+.print-select, .print-quantity {
+    width: 100%;
+    padding: 0.7rem 1rem;
+    border-radius: var(--border-radius-sm);
+    border: 1px solid rgba(180, 170, 155, 0.3);
+    background: rgba(255, 255, 252, 0.9);
+    font-size: 0.95rem;
+}
+
+.modal-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: flex-end;
+    margin-top: 1.5rem;
+}
+
+.modal-buttons button {
+    padding: 0.5rem 1.2rem;
+}
+
+/* ============================================
+   FORMULÁRIO COM NAVEGAÇÃO - LAYOUT CORRIGIDO
+   ============================================ */
+.form-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 1.5rem;
+    gap: 1rem;
+}
+
+.form-header h2 {
+    margin-bottom: 0 !important;
+}
+
+/* Card de navegação */
+.navigation-card {
+    margin-top: 1.5rem;
+    text-align: center;
+}
+
+.record-navigation {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.nav-record-btn {
+    background: var(--btn-bg);
+    border: 1px solid rgba(180, 170, 155, 0.4);
+    padding: 0.5rem 1.5rem;
+    border-radius: var(--border-radius-xl);
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition-default);
+    font-family: inherit;
+    font-size: 0.85rem;
+    color: var(--primary-text);
+}
+
+.nav-record-btn:hover:not(:disabled) {
+    background: var(--btn-hover);
+    transform: translateY(-2px);
+}
+
+.nav-record-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.record-counter {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--primary-text);
+    background: rgba(255, 255, 250, 0.6);
+    padding: 0.4rem 1.2rem;
+    border-radius: var(--border-radius-xl);
+    min-width: 160px;
+    text-align: center;
+}
+
+.form-footer-info {
+    margin-top: 0.8rem;
+    text-align: center;
+    font-size: 0.75rem;
+    color: #9a9588;
+}
+
+.record-id-info {
+    background: rgba(212, 184, 150, 0.2);
+    padding: 0.2rem 0.8rem;
+    border-radius: var(--border-radius-xl);
+}
+
+/* Responsividade */
+@media (max-width: 600px) {
+    .record-navigation {
+        gap: 0.8rem;
+        flex-direction: column;
+    }
+    
+    .nav-record-btn {
+        padding: 0.4rem 1rem;
+        font-size: 0.75rem;
+        width: 100%;
+        max-width: 200px;
+    }
+    
+    .record-counter {
+        font-size: 0.75rem;
+        padding: 0.3rem 0.8rem;
+        min-width: 140px;
+    }
+    
+    .form-header {
+        flex-direction: column;
+        text-align: center;
+    }
+}
