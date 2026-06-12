@@ -1,0 +1,88 @@
+Passo 1: Configurar as Permissões da Pasta (Crucial para o SQLite)
+O SQLite precisa de permissão total para criar e modificar arquivos dentro da pasta C:\inetpub\cabinet\DB\. Por padrão, o Windows restringe a escrita na pasta C:\inetpub\.
+
+Abra o Explorador de Arquivos e vá até C:\inetpub\.
+
+Clique com o botão direito na pasta cabinet e selecione Propriedades.
+
+Vá ao separador Segurança e clique no botão Editar (para alterar permissões).
+
+Selecione o grupo "Utilizadores" (Users) ou "Todos" (Everyone).
+
+Na lista em baixo, marque a caixa "Controlo Total" (Full Control) ou "Modificar".
+
+Clique em Aplicar e OK em todas as janelas.
+
+Passo 2: Permitir o Tráfego na Firewall do Windows (Acesso à Rede)
+Para que outros computadores ou tablets do consultório consigam aceder à aplicação através do IP do computador principal, deve abrir a porta 3000 na Firewall do Windows:
+
+Clique no menu Iniciar, escreva Firewall do Windows e selecione "Firewall do Windows Defender com Segurança Avançada".
+
+No menu esquerdo, clique em Regras de Entrada (Inbound Rules).
+
+No menu direito, clique em Nova Regra... (New Rule).
+
+Escolha a opção Porta (Port) e clique em Seguinte.
+
+Selecione TCP e, em "Portas locais específicas", digite 3000. Clique em Seguinte.
+
+Selecione Permitir a ligação e clique em Seguinte.
+
+Deixe as três opções marcadas (Domínio, Privado, Público) e clique em Seguinte.
+
+Dê um nome à regra (ex: App Esterilizacao) e clique em Concluir.
+
+Passo 3: Criar um Atalho de Inicialização Rápida
+Em vez de abrir o terminal e digitar comandos manualmente sempre que ligar o computador, pode criar um ficheiro executável automático (.bat).
+
+Abra o Bloco de Notas do Windows.
+
+Cole o seguinte código (ajuste o caminho se necessário):
+
+DOS
+@off
+echo Iniciando o Servidor de Esterilizacao...
+cd C:\inetpub\cabinet
+node server.js
+pause
+Clique em Ficheiro > Guardar Como.
+
+No campo "Tipo", mude para Todos os ficheiros (.).
+
+Nomeie o arquivo como Iniciar_App.bat e guarde-o no seu Ambiente de Trabalho (Desktop).
+
+Agora, basta dar dois cliques neste ficheiro no Ambiente de Trabalho para que o servidor ligue instantaneamente.
+
+Passo 4: Como aceder à App no Consultório
+No computador principal (onde o servidor está a correr):
+Abra o navegador e aceda a: http://localhost:3000
+
+Noutros computadores da mesma rede local:
+
+Primeiro, descubra o IP local do computador principal (abra o terminal cmd, digite ipconfig e procure pelo endereço IPv4, que normalmente será algo como 192.168.1.XX).
+
+Nos outros computadores, abra o navegador e digite o IP seguido da porta:
+http://192.168.1.XX:3000
+
+💡 Passo Extra (Avançado): Executar o Node.js como Serviço do Windows
+Se não quiser que nenhuma janela preta do terminal fique aberta na barra de tarefas, pode transformar a sua app num Serviço do Windows que inicia sozinho de forma invisível assim que o computador liga.
+
+Abra o Terminal do Windows (Prompt de Comando) como Administrador.
+
+Instale o utilitário global qckwinsvc:
+
+Bash
+npm install -g qckwinsvc
+Execute o configurador automático:
+
+Bash
+qckwinsvc
+O utilitário fará algumas perguntas:
+
+Service name: esterilizacao_app
+
+Service description: Servidor de Registo de Esterilizacao
+
+Node script path: C:\inetpub\cabinet\server.js
+
+Pronto! A aplicação passará a correr silenciosamente em segundo plano no Windows, persistindo todos os dados no SQLite sem qualquer intervenção humana.
